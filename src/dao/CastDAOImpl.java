@@ -37,12 +37,10 @@ public class CastDAOImpl implements CastDAO {
 			}
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
-			
+		}finally {
+			DBUtil.close(rs,pstmt);
 		}
-		
 		return sb.toString();
 	}
 
