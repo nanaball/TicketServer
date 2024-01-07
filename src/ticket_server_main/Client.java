@@ -11,6 +11,9 @@ import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import dao.CastDAO;
+import dao.CastDAOImpl;
+
 public class Client {
 
 	public static ExecutorService threadPool = Executors.newCachedThreadPool();
@@ -85,13 +88,18 @@ public class Client {
 						// 2|0|data...
 						// 결제 관련 요청 처리에 대한 서버의 결과
 						if(datas[1].equals("0")) {
-						}else {
+						} else {
 							// 2|1|data...
 							// 결제 관련 완료 요청 처리에 대한 서버의 결과
 						}
 					}else if(order.equals("3")) {
 						// 3|data...
 						// 포스트 관련 요청 처리에 대한 서버의 결과
+						
+						CastDAO castDAO = new CastDAOImpl();
+						String s = castDAO.getCastInfoListString("3|" + datas[1]);
+						sendData(s);
+						
 					}
 				} catch (IOException e) {
 					break;
