@@ -1,5 +1,9 @@
 package dao;
 
-public interface PayDAO {
+import vo.PayVO;
 
+public interface PayDAO {
+	
+	PayVO pay(PayVO payVO);
+	
 }
