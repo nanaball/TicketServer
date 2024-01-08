@@ -8,9 +8,8 @@ public class PayVO {
 	private String seat;
 	private String name;
 	
-	public PayVO(String user, String price, String date, String musical, String seat, String name) {
+	public PayVO(String price, String date, String musical, String seat, String name) {
 		super();
-		this.user = user;
 		this.price = price;
 		this.date = date;
 		this.musical = musical;
