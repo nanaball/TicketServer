@@ -19,7 +19,7 @@ public abstract class MemberDAOImpl implements MemberDAO{
 			conn= DBUtil.getConnection();
 			String sql = "INSERT INTO projecttbl(userID,password,userName,phoneNum) VALUES(?,?,?,?)";
 			try {
-				MemberDAO m;
+				MemberVO m;
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, memberVO.getmId());
 				pstmt.setString(2, memberVO.getmPw());
@@ -36,6 +36,7 @@ public abstract class MemberDAOImpl implements MemberDAO{
 				}
 			return memberVO;
 		}
+		
 		@Override
 		public MemberVO login(String id, String pass) {
 			
