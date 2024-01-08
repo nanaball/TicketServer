@@ -13,12 +13,15 @@ import java.util.concurrent.Executors;
 
 import dao.CastDAO;
 import dao.CastDAOImpl;
+import vo.CastVO;
 
 public class Client {
 
 	public static ExecutorService threadPool = Executors.newCachedThreadPool();
 
 	public static List<Client> clients = new Vector<>();
+	
+	public static CastDAO castDAO = new CastDAOImpl();
 
 	public Socket client;
 
@@ -95,10 +98,27 @@ public class Client {
 					}else if(order.equals("3")) {
 						// 3|data...
 						// 포스트 관련 요청 처리에 대한 서버의 결과
-						
-						CastDAO castDAO = new CastDAOImpl();
-						String s = castDAO.getCastInfoListString("3|" + datas[1]);
-						sendData(s);
+						String secondOrder = datas[1];
+						// 3|0| == 날짜별 뮤지컬 목록 조회
+						if(secondOrder.equals("0")) {
+							// 해당 날짜로 저장된 뮤지컬 목록 정보를 DB에서 검색
+							List<CastVO> list = castDAO.getCastInfoListString(datas[2]);
+							// CastVO == row
+							// rows == CastVO...
+							// 3|0|0| ~~~~~~~ 뮤지컬 목록 정보가 있음 나열에서 출력
+							// 3|0|1| ~~~~~~~ 뮤지컬 목록 없음.
+							String result = "3|0|0|";
+							// 3|0|0|1,2024-01-03,23:11:10,이기자,홍길동,메쉬!2,2024-01-03,23:13:10,이기자,홍길동,메쉬!1,2024-01-03,23:11:10,이기자,홍길동,메쉬 ...
+							if(!list.isEmpty()){
+								for(CastVO vo : list) {
+									result +=  vo.getId()+"!"+vo.getDate()+"!"+vo.getTime()+"!"+vo.getCasting()+"!"+"^";
+								}
+							}else {
+								result = "3|0|1";
+							}
+							System.out.println("sendData : " + result);
+							sendData(result);
+						}
 						
 					}
 				} catch (IOException e) {
