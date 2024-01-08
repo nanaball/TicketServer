@@ -15,6 +15,8 @@ import dao.CastDAO;
 import dao.CastDAOImpl;
 import dao.MemberDAO;
 import dao.MemberDAOImpl;
+import dao.ReservationDAO;
+import dao.ReservationDAOImpl;
 import vo.CastVO;
 import vo.MemberVO;
 
@@ -26,6 +28,7 @@ public class Client {
 	
 	public static CastDAO castDAO = new CastDAOImpl();
 	public static MemberDAO memberDAO = new MemberDAOImpl();
+	public static ReservationDAO ticketDAO = new ReservationDAOImpl();
 
 	public Socket client;
 
@@ -106,6 +109,8 @@ public class Client {
 					}else if(order.equals("1")) {
 						// 1|data...
 						// 예매 관련 요청 처리에 대한 서버의 결과
+						// 1|date,time
+						ticketDAO.listReservTicket(null,null);
 					}else if(order.equals("2")) {
 						// 2|0|data...
 						// 결제 관련 요청 처리에 대한 서버의 결과
