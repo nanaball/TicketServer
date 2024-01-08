@@ -3,80 +3,63 @@ package vo;
 
 public class MemberVO {
 
-	private String mName;
+	private String userID;
 	
-	private String mId; // UNIQUE
+	private String password; // UNIQUE
 	
-	private String mPw;
+	private String userName;
 	
-	private String pNum;
-	
+	private String phoneNum;
 	
 	public MemberVO() {}
-	
-	
-	// 회원 로그인 및 정보 검색용 생성자
-	public MemberVO(String mId, String mPw) {
-		this.mId = mId;
-		this.mPw = mPw;
-	}
-	// 회원가입용 및 DB List
-	public MemberVO( String mId, String mPw ,String mName, String pNum) {
-		this.mName = mName;
-		this.mId = mId;
-		this.mPw = mPw;
-		this.pNum = pNum;
+
+	public MemberVO(String userID, String password) {
+		this.userID = userID;
+		this.password = password;
 	}
 
-
-	public String getmName() {
-		return mName;
+	public MemberVO(String userID, String password, String userName, String phoneNum) {
+		this.userID = userID;
+		this.password = password;
+		this.userName = userName;
+		this.phoneNum = phoneNum;
 	}
 
-
-	public void setmName(String mName) {
-		this.mName = mName;
+	public String getUserID() {
+		return userID;
 	}
 
-
-	public String getmId() {
-		return mId;
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
 
-
-	public void setmId(String mId) {
-		this.mId = mId;
+	public String getPassword() {
+		return password;
 	}
 
-
-	public String getmPw() {
-		return mPw;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-
-	public void setmPw(String mPw) {
-		this.mPw = mPw;
+	public String getUserName() {
+		return userName;
 	}
 
-
-	public String getpNum() {
-		return pNum;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-
-	public void setpNum(String pNum) {
-		this.pNum = pNum;
+	public String getPhoneNum() {
+		return phoneNum;
 	}
 
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
+	}
 
 	@Override
 	public String toString() {
-		return "Member_DO [mName=" + mName + ", mId=" + mId + ", mPw=" + mPw + ",  pNum=" + pNum
-				+ "]";
+		return userID + "," + password + "," + userName + ","+ phoneNum;
 	}
-	
-
-	
-	
 	
 }
