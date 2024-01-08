@@ -9,7 +9,7 @@ import java.sql.Statement;
 import utils.DBUtil;
 import vo.MemberVO;
 
-public abstract class MemberDAOImpl implements MemberDAO{
+public class MemberDAOImpl implements MemberDAO{
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -17,54 +17,57 @@ public abstract class MemberDAOImpl implements MemberDAO{
 		ResultSet rs = null;
 	
 		@Override
-		public MemberVO join(MemberVO memberVO) {
+		public boolean join(MemberVO memberVO) {
+			boolean isJoin = false;
 			conn= DBUtil.getConnection();
 			String sql = "INSERT INTO member(userID,password,userName,phoneNum) VALUES(?,?,?,?)";
 			try {
-				MemberVO m;
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, memberVO.getmId());
-				pstmt.setString(2, memberVO.getmPw());
-				pstmt.setString(3, memberVO.getmName());
-				pstmt.setString(4, memberVO.getpNum());
+				pstmt.setString(1, memberVO.getUserID());
+				pstmt.setString(2, memberVO.getPassword());
+				pstmt.setString(3, memberVO.getUserName());
+				pstmt.setString(4, memberVO.getPhoneNum());
 
 				int result = pstmt.executeUpdate();
-				
-
-			}catch (SQLException e) {
-					e.printStackTrace();
-				}finally {
-					DBUtil.close(rs, pstmt);
+				if(result == 1) {
+					isJoin = true;
 				}
-			return memberVO;
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				DBUtil.close(rs, pstmt);
+			}
+			return isJoin;
 		}
+		
 		
 		@Override
 		public MemberVO login(String id, String pass) {
-			
+			MemberVO member = null;
 			try {
-				stmt = conn.createStatement();
-				String sql = "SELECT * FROM member WHERE id = ? AND pass = ?";
+				// conn field 초기화
+				conn = DBUtil.getConnection();
+				String sql = "SELECT * FROM member WHERE userID = ? AND password = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setString(2, pass);
 				
-				rs = stmt.executeQuery(sql);
+				rs = pstmt.executeQuery();
 				
-				while(rs.next()) {
+				if(rs.next()) {
 					String userId = rs.getString(1);
 					String password = rs.getString(2);
-					String result = String.format(id,pass);
-					System.out.println(result);
+					String userName = rs.getString(3);
+					String phoneNum = rs.getString(4);
+					member = new MemberVO(userId,password,userName,phoneNum);
+					System.out.println("loginMember : "+member);
 				}
-				
-				rs.close();
-				stmt.close();
-				
 			} catch (SQLException e) {
-			
 				e.printStackTrace();
+			}finally {
+				DBUtil.close(rs,pstmt);
 			}
-			
-			
-			return null;
+			return member;
 		}
 	
 }
