@@ -1,7 +1,11 @@
 package dao;
 
+import java.util.List;
+
+import vo.CastVO;
+
 public interface CastDAO {
 
-	String getCastInfoListString(String date);
+	List<CastVO> getCastInfoListString(String date);
 
 }
