@@ -13,7 +13,10 @@ import java.util.concurrent.Executors;
 
 import dao.CastDAO;
 import dao.CastDAOImpl;
+import dao.MemberDAO;
+import dao.MemberDAOImpl;
 import vo.CastVO;
+import vo.MemberVO;
 
 public class Client {
 
@@ -22,6 +25,7 @@ public class Client {
 	public static List<Client> clients = new Vector<>();
 	
 	public static CastDAO castDAO = new CastDAOImpl();
+	public static MemberDAO memberDAO = new MemberDAOImpl();
 
 	public Socket client;
 
@@ -70,20 +74,35 @@ public class Client {
 					// order == 0 회원 관련 요청 처리
 					if(order.equals("0")) {
 						if(datas[1].equals("0")) {
+							// "0|0|"+txtId.getText().trim()+","+txtPw.getText().trim()
 							// 0|0|id,pass ...
 							// 로그인 관련 요청 처리에 대한 서버의 결과
 							String[] strs = datas[2].split(",");
 							String id = strs[0];
 							String pw = strs[1];
 							// id 패스워드가 일치하는 사용자 정보 DB에서 검색
-							sendData("0|0|id,pw,phone,name");
-						}else {
+							MemberVO member = memberDAO.login(id, pw);
+							if(member == null) {
+								// 로그인 실패
+								// 0|0|0
+								sendData("0|0|0");
+							}else {
+								// 로그인 성공
+								// 0|0|1
+								sendData("0|0|1|"+member.toString());
+							}
+						}else if(datas[1].equals("1")){
 							// 0|1|data...
 							// 회원가입 관련 요청 처리에 대한 서버의 결과
 							// database 에 회원 정보 저장
 							// 저장 여부에 따라 성공여부 출력
-							sendData("0|1|true");
+							String[] joins = datas[2].split(",");
+							
+							boolean isJoin = memberDAO.join(new MemberVO(joins[0],joins[1],joins[2],joins[3]));
+							sendData("0|1|"+isJoin);
 						}
+						
+						
 					}else if(order.equals("1")) {
 						// 1|data...
 						// 예매 관련 요청 처리에 대한 서버의 결과
