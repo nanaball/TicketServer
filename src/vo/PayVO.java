@@ -2,13 +2,13 @@ package vo;
 
 public class PayVO {
 	private String user;
-	private String price;
+	private Integer price;
 	private String date;
 	private String musical;
 	private String seat;
 	private String name;
 	
-	public PayVO(String price, String date, String musical, String seat, String name) {
+	public PayVO(Integer price, String date, String musical, String seat, String name) {
 		super();
 		this.price = price;
 		this.date = date;
@@ -28,12 +28,12 @@ public class PayVO {
 	}
 
 
-	public String getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
 
-	public void setPrice(String price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 
