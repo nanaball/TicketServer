@@ -1,7 +1,7 @@
 CREATE TABLE `ticket` (
   `ticketNum` int NOT NULL AUTO_INCREMENT,
   `userID` varchar(12) NOT NULL COMMENT '티켓 구매자 ID',
-  `musical` char(5) NOT NULL COMMENT '뮤지컬 이름',
+  `musical` VARCHAR(20) NOT NULL COMMENT '뮤지컬 이름',
   `seatNum` varchar(4) NOT NULL COMMENT '좌석번호',
   `pay` int NOT NULL COMMENT '금액',
   `Date` date NOT NULL COMMENT '뮤지컬 날짜',

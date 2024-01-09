@@ -19,6 +19,7 @@ import dao.ReservationDAO;
 import dao.ReservationDAOImpl;
 import vo.CastVO;
 import vo.MemberVO;
+import vo.TicketVO;
 
 public class Client {
 
@@ -113,12 +114,30 @@ public class Client {
 						ticketDAO.listReservTicket(null,null);
 					}else if(order.equals("2")) {
 						// 2|0|data...
+						// 2|0|33,레베카,E-8,100000,2024-01-11,18:00:00
 						// 결제 관련 요청 처리에 대한 서버의 결과
 						if(datas[1].equals("0")) {
-							
-						} else {
+							String[] ticket = datas[2].split(",");
+							//  0   1      2  ...
+							// [33][레베카][E-8][100000][2024-01-11][18:00:00]
+							TicketVO vo = new TicketVO();
+							vo.setUserID(ticket[0]);
+							vo.setMusical(ticket[1]);
+							vo.setSeatNum(ticket[2]);
+							vo.setPay(Integer.parseInt(ticket[3]));
+							vo.setDate(ticket[4]);
+							vo.setTime(ticket[5]);
+							System.out.println(vo);
+							boolean isReservation = ticketDAO.reservationTicket(vo);
+							sendData("2|0|"+isReservation);
+						} else if(datas[1].equals("1")) {
 							// 2|1|data...
 							// 결제 관련 완료 요청 처리에 대한 서버의 결과
+							// payDone
+							
+						}else {
+							// payCheck
+							
 						}
 					}else if(order.equals("3")) {
 						// 3|data...
