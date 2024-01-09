@@ -20,6 +20,8 @@ public interface ReservationDAO {
 	 * @param 예약 정보
 	 * @return 예약 등록 성공 여부 true  - 성공 , false - 실패
 	 */
-	boolean reservationTicket(TicketVO vo); 
+	boolean reservationTicket(TicketVO vo);
+
+	boolean reservationTicketCancel(TicketVO vo); 
 	
 }

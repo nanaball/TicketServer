@@ -134,10 +134,31 @@ public class Client {
 							// 2|1|data...
 							// 결제 관련 완료 요청 처리에 대한 서버의 결과
 							// payDone
+							String[] ticket = datas[2].split(",");
+							TicketVO vo = new TicketVO();
+							vo.setUserID(ticket[0]);
+							vo.setMusical(ticket[1]);
+							vo.setSeatNum(ticket[2]);
+							vo.setPay(Integer.parseInt(ticket[3]));
+							vo.setDate(ticket[4]);
+							vo.setTime(ticket[5]);
+							System.out.println(vo);
+							boolean isReservation = ticketDAO.reservationTicket(vo);
+							sendData("2|1|"+isReservation);
 							
 						}else {
 							// payCheck
-							
+							String[] ticket = datas[2].split(",");
+							TicketVO vo = new TicketVO();
+							vo.setUserID(ticket[0]);
+							vo.setMusical(ticket[1]);
+							vo.setSeatNum(ticket[2]);
+							vo.setPay(Integer.parseInt(ticket[3]));
+							vo.setDate(ticket[4]);
+							vo.setTime(ticket[5]);
+							System.out.println(vo);
+							boolean isReservation = ticketDAO.reservationTicketCancel(vo);
+							sendData("2|2|"+isReservation);
 						}
 					}else if(order.equals("3")) {
 						// 3|data...
