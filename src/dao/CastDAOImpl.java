@@ -36,11 +36,13 @@ public class CastDAOImpl implements CastDAO {
 				int id = rs.getInt(1);
 				Date d1 = rs.getDate(2);
 				System.out.println(d1.toString());
-				Time t1 = rs.getTime(3);
+				String m1 = rs.getString(3);
+				System.out.println(m1.toString());
+				Time t1 = rs.getTime(4);
 				System.out.println(t1.toString());
-				String casting = rs.getString(4);
+				String casting = rs.getString(5);
 				System.out.println(casting);
-				CastVO cast = new CastVO(id, d1.toString(), t1.toString(),casting);
+				CastVO cast = new CastVO(id, d1.toString(), m1.toString(), t1.toString(),casting);
 				list.add(cast);
 			}
 		} catch (Exception e) {

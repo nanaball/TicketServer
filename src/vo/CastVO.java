@@ -7,6 +7,7 @@ public class CastVO {
 	
 	private int id;
 	private String date;
+	private String musicalNa;
 	private String time;
 	private String casting;
 	
@@ -14,15 +15,23 @@ public class CastVO {
 		super();
 	}
 
-	public CastVO(int id, String date, String time, String casting) {
+	public CastVO(int id, String date, String musicalNa, String time, String casting) {
 		super();
 		this.id = id;
 		this.date = date;
+		this.musicalNa = musicalNa;
 		this.time = time;
 		this.casting = casting;
 	}
 
-	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 
 	public String getDate() {
 		return date;
@@ -32,6 +41,14 @@ public class CastVO {
 		this.date = date;
 	}
 
+	public String getMusicalNa() {
+		return musicalNa;
+	}
+
+	public void setMusicalNa(String musicalNa) {
+		this.musicalNa = musicalNa;
+	}
+	
 	public String getTime() {
 		return time;
 	}
@@ -48,17 +65,14 @@ public class CastVO {
 		this.casting = casting;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	@Override
 	public String toString() {
-		return "CastVO [id=" + id + ", date=" + date + ", time=" + time + ", casting=" + casting + "]";
+		return "CastVO [id=" + id + ",  date=" + date + ", musicalNa=" + musicalNa + ", time=" + time + ", casting="
+				+ casting + "]";
 	}
+
+	
+
+
 
 }
