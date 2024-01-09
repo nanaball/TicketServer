@@ -14,9 +14,14 @@ public class PayDaoImpl implements PayDAO {
 	ResultSet rs = null;
 	
 	// 아.. 큰일났네
+	// PayMain에 예매한 정보를 TextField에 덮어씌우고 싶음
+	// PayCheck도 동일함
+	// 방법을 모름
 	
+	// 선택한 정보를 불러와서 PayMain에 넣기
+	// 모름 큰일남
 	@Override
-	public PayVO pay(String name, String date, String seat, String musical, String price) {
+	public PayVO pay(String name, String date, String seat, String musical, Integer price) {
 		PayVO paying = null;
 		Connection conn = DBUtil.getConnection();
 		String sql = "select name, date, seat, musical, price from pay";
@@ -27,17 +32,17 @@ public class PayDaoImpl implements PayDAO {
 			pstmt.setString(2, date);
 			pstmt.setString(3, seat);
 			pstmt.setString(4, musical);
-			pstmt.setString(5, price);
+			pstmt.setInt(5, price);
 			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				price = rs.getString("price");
+				price = rs.getInt("price");
 				seat = rs.getString("seat");
 				musical = rs.getString("musical");
 				date = rs.getString("date");
 				name = rs.getString("name");
-				paying = new PayVO(name,price,date,musical,seat);
+				paying = new PayVO(price,date,seat,musical,name);
 				
 			}
 			
@@ -49,9 +54,10 @@ public class PayDaoImpl implements PayDAO {
 		return paying;
 	}
 	
+	// 예매한 정보를 DB에 send
 	@Override
 	public boolean addPay(PayVO payVO) {
-		boolean isJoin = false;
+		boolean addPay = false;
 		Connection conn = DBUtil.getConnection();
 		String sql = "INSERT INTO pay VALUES(?,?,?,?,?)";
 		try {
@@ -60,19 +66,19 @@ public class PayDaoImpl implements PayDAO {
 			pstmt.setString(2, payVO.getDate());
 			pstmt.setString(3, payVO.getSeat());
 			pstmt.setString(4, payVO.getMusical());
-			pstmt.setString(5, payVO.getPrice());
+			pstmt.setInt(5, payVO.getPrice());
 
 			int result = pstmt.executeUpdate();
 			
 			if(result == 1) {
-				isJoin = true;
+				addPay = true;
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			DBUtil.close(rs, pstmt);
 		}
-		return isJoin;
+		return addPay;
 	}
 	
 
