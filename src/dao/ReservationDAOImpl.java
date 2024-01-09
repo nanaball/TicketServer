@@ -19,7 +19,8 @@ public class ReservationDAOImpl implements ReservationDAO {
 	public List<TicketVO> listReservTicket(String date, String time) {
 		return null;
 	}
-
+	
+	// 로그인 했던 정보를 바탕으로 예매한 정보를 mysql에 입력
 	@Override
 	public boolean reservationTicket(TicketVO vo) {
 		
@@ -48,5 +49,31 @@ public class ReservationDAOImpl implements ReservationDAO {
 		}
 		return isReservation;
 	}
+	
+	// 로그인 했던 정보를 바탕으로 예매했던 정보를 mysql 에서 삭제
+	@Override
+	public boolean reservationTicketCancel(TicketVO vo) {
+		
+		boolean isReservationDelete = false;
+		
+		String sql = "DELETE FROM ticket WHERE userID='"+vo.getUserID()+"' AND musical='"+vo.getMusical()+"' AND seatNum='"+vo.getSeatNum()+"' AND Date='"+vo.getDate()+"' AND Time='" +vo.getTime()+"';" ;
+		System.out.println(sql);
+		
+		conn = DBUtil.getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int result = pstmt.executeUpdate();
+			if(result == 1) {
+				isReservationDelete = true;
+			}
+		} catch (SQLException e) {
+			isReservationDelete = false;
+		}finally {
+			DBUtil.close(pstmt);
+		}
+		return isReservationDelete;
+	}
+	
 
 }
