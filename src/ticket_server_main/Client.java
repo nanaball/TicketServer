@@ -135,7 +135,7 @@ public class Client {
 							// 3|0|0|1,2024-01-03,23:11:10,이기자,홍길동,메쉬!2,2024-01-03,23:13:10,이기자,홍길동,메쉬!1,2024-01-03,23:11:10,이기자,홍길동,메쉬 ...
 							if(!list.isEmpty()){
 								for(CastVO vo : list) {
-									result +=  vo.getId()+"!"+vo.getDate()+"!"+vo.getTime()+"!"+vo.getCasting()+"!"+"^";
+									result +=  vo.getId()+"!"+vo.getDate()+"!"+vo.getMusicalNa()+"!"+vo.getTime()+"!"+vo.getCasting()+"!"+"^";
 								}
 							}else {
 								result = "3|0|1";
