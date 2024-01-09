@@ -115,6 +115,7 @@ public class Client {
 						// 2|0|data...
 						// 결제 관련 요청 처리에 대한 서버의 결과
 						if(datas[1].equals("0")) {
+							
 						} else {
 							// 2|1|data...
 							// 결제 관련 완료 요청 처리에 대한 서버의 결과
