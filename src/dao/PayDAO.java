@@ -4,8 +4,10 @@ import vo.PayVO;
 
 public interface PayDAO {
 	
-	PayVO pay(String name, String price, String seat, String musical, String date);
-
+	PayVO pay(String name, String date, String seat, String musical, Integer price);
+	
 	boolean addPay(PayVO payVO);
+
+	
 	
 }
