@@ -110,8 +110,19 @@ public class Client {
 					}else if(order.equals("1")) {
 						// 1|data...
 						// 예매 관련 요청 처리에 대한 서버의 결과
-						// 1|date,time
-						ticketDAO.listReservTicket(null,null);
+						// 1|musicalName,date,time
+						//       0        1     2
+						// [musicalName][date][time] 
+						String[] reservData = datas[1].split(",");
+						List<TicketVO> reservList = ticketDAO.listReservTicket(reservData[0],reservData[1],reservData[2]);
+						String sendSeatDatas = "1|";
+						for(TicketVO vo : reservList) {
+							sendSeatDatas += vo.getSeatNum()+",";
+						}
+						System.out.println(sendSeatDatas);
+						sendSeatDatas = sendSeatDatas.substring(0,sendSeatDatas.length()-1);
+						System.out.println(sendSeatDatas);
+						sendData(sendSeatDatas);
 					}else if(order.equals("2")) {
 						// 2|0|data...
 						// 2|0|33,레베카,E-8,100000,2024-01-11,18:00:00
