@@ -26,6 +26,8 @@ public interface ReservationDAO {
 
 	boolean reservationTicketCancel(TicketVO vo);
 
-	List<TicketVO> getTicketInfoListString(String id); 
+	List<TicketVO> getTicketInfoListString(String id);
+
+	boolean reservationTicketCheck(TicketVO vo); 
 	
 }

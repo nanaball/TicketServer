@@ -81,6 +81,29 @@ public class ReservationDAOImpl implements ReservationDAO {
 		return isReservation;
 	}
 	
+	@Override
+	public boolean reservationTicketCheck(TicketVO vo) {
+		
+		boolean isReservationCheck = false;
+		
+		String sql = "SELECT userID, musical, seatNum, Date,time FROM ticket WHERE WHERE userID='\"+vo.getUserID()+\"' AND musical='\"+vo.getMusical()+\"' AND seatNum='\"+vo.getSeatNum()+\"' AND Date='\"+vo.getDate()+\"' AND Time='\" +vo.getTime()+\"';\" ;";
+		System.out.println(sql);
+		
+		conn = DBUtil.getConnection();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int result = pstmt.executeUpdate();
+			if(result == 1) {
+				isReservationCheck = true;
+			}
+		} catch (SQLException e) {
+			isReservationCheck = false;
+		}
+		
+		return isReservationCheck;
+	}
+	
 	// 로그인 했던 정보를 바탕으로 예매했던 정보를 mysql 에서 삭제
 	@Override
 	public boolean reservationTicketCancel(TicketVO vo) {
