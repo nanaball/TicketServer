@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import vo.CastVO;
 import vo.TicketVO;
 
 /**
@@ -22,6 +23,8 @@ public interface ReservationDAO {
 	 */
 	boolean reservationTicket(TicketVO vo);
 
-	boolean reservationTicketCancel(TicketVO vo); 
+	boolean reservationTicketCancel(TicketVO vo);
+
+	List<TicketVO> getTicketInfoListString(String id); 
 	
 }
