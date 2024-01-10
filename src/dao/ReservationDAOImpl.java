@@ -1,9 +1,11 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,4 +108,51 @@ public class ReservationDAOImpl implements ReservationDAO {
 // 1/10 추가	
 	
 
+	// 로그인한 정보에서 예매 내역 뽑아오기 
+	@Override
+	public List<TicketVO> getTicketInfoListString(String userID) {
+		
+		List<TicketVO> list = new ArrayList<>();
+		conn = DBUtil.getConnection();
+		String sql = "SELECT * FROM ticket WHERE userID = ?";
+				
+		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			//pstmt.setString(1, musicalNa);
+			//pstmt.setString(2, date);
+			//pstmt.setString(3, time);
+			rs = pstmt.executeQuery();
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userID);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int num = rs.getInt(1);
+				String id = rs.getString(2);
+				System.out.println(id.toString());				
+				String m1 = rs.getString(3);
+				System.out.println(m1.toString());
+				String s1 = rs.getString(4);
+				System.out.println(s1.toString());
+				int p1 = rs.getInt(5);
+				System.out.println(p1);				
+				Date d1 = rs.getDate(6);
+				System.out.println(d1.toString());
+				Time t1 = rs.getTime(7);
+				System.out.println(t1.toString());
+								
+				TicketVO ck = new TicketVO(num, id.toString(), m1.toString(), s1.toString(), p1, d1.toString(), t1.toString());
+				list.add(ck);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.close(rs,pstmt);
+		}
+		return list;
+	}
 }

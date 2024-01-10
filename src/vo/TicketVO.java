@@ -1,5 +1,7 @@
 package vo;
 
+import java.util.List;
+
 public class TicketVO {
 	
 	private int ticketNum;
@@ -84,6 +86,11 @@ public class TicketVO {
 	public String toString() {
 		return "TicketVO [ticketNum=" + ticketNum + ", userID=" + userID + ", musical=" + musical + ", seatNum="
 				+ seatNum + ", pay=" + pay + ", date=" + date + ", time=" + time + "]";
+	}
+
+	public static List<TicketVO> getTicketInfoListString(String string) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
