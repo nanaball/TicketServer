@@ -88,10 +88,7 @@ public class TicketVO {
 				+ seatNum + ", pay=" + pay + ", date=" + date + ", time=" + time + "]";
 	}
 
-	public static List<TicketVO> getTicketInfoListString(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	
 	
 

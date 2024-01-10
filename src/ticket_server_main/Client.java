@@ -172,24 +172,21 @@ public class Client {
 							sendData("2|2|"+isReservation);
 						}else {
 							// reserveCheck
-							// 2|3
-							List<TicketVO> list = TicketVO.getTicketInfoListString(datas[1]);
-							// CastVO == row
-							// rows == CastVO...
-							// 3|0|0| ~~~~~~~ 뮤지컬 목록 정보가 있음 나열에서 출력
-							// 3|0|1| ~~~~~~~ 뮤지컬 목록 없음.
-							String result = "2|3|1";
-							String[] ticket = datas[2].split(",");
-							TicketVO vo = new TicketVO();
-							vo.setUserID(ticket[0]);
-							vo.setMusical(ticket[1]);
-							vo.setSeatNum(ticket[2]);
-							vo.setPay(Integer.parseInt(ticket[3]));
-							vo.setDate(ticket[4]);
-							vo.setTime(ticket[5]);
-							System.out.println(vo);
-							boolean isReservation = ticketDAO.reservationTicket(vo);
-							sendData("2|3|"+isReservation);
+							// 2|3|userid
+							List<TicketVO> list = ticketDAO.getTicketInfoListString(datas[2]);
+							
+							String result = "2|3|0|";
+							
+							if(!list.isEmpty()){
+								for(TicketVO vo : list) {
+									result +=  vo.getTicketNum()+"!"+vo.getUserID()+"!"+vo.getMusical()+"!"+vo.getSeatNum()+"!"+vo.getPay()+"!"+vo.getDate()+"!"+vo.getTime()+"!"+"^";
+								}
+							}else {
+								result = "2|3|1";
+							}
+							System.out.println("sendData : " + result);
+							sendData(result);
+						
 						}
 					}else if(order.equals("3")) {
 						// 3|data...
