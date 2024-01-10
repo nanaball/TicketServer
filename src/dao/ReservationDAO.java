@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vo.CastVO;
@@ -12,9 +13,9 @@ import vo.TicketVO;
 public interface ReservationDAO {
 	/**
 	 * @return 예약완료된 좌석 목록
-	 * @param 예약 목록을 확인할 날짜, 시간 정보
+	 * @param 예약 목록을 확인할 날짜, 시간, 뮤지컬 이름 정보
 	 */
-	List<TicketVO> listReservTicket(String date, String time);
+	List<TicketVO> listReservTicket(String musicalNa, String date, String time);
 	
 	/**
 	 * 예약완료 등록

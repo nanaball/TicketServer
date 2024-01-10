@@ -18,9 +18,37 @@ public class ReservationDAOImpl implements ReservationDAO {
 	PreparedStatement pstmt;
 	ResultSet rs;
 
+	// 1/10 수정
 	@Override
-	public List<TicketVO> listReservTicket(String date, String time) {
-		return null;
+	public List<TicketVO> listReservTicket(String musicalNa, String date, String time){
+		String sql = "SELECT * FROM ticket WHERE musical=? AND date = ? AND time = ?";
+		ArrayList<TicketVO> list = new ArrayList<>();
+		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, musicalNa);
+			pstmt.setString(2, date);
+			pstmt.setString(3, time);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				// int ticketNum, String userID, String musical, String seatNum, int pay, String date, String time
+				TicketVO vo = new TicketVO(
+					rs.getInt(1),
+					rs.getString(2),
+					rs.getString(3),
+					rs.getString(4),
+					rs.getInt(5),
+					rs.getDate(6).toString(),
+					rs.getTime(7).toString()
+				);
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.close(rs,pstmt);
+		}
+		return list;
 	}
 	
 	// 로그인 했던 정보를 바탕으로 예매한 정보를 mysql에 입력
@@ -77,16 +105,25 @@ public class ReservationDAOImpl implements ReservationDAO {
 		}
 		return isReservationDelete;
 	}
+// 1/10 추가	
 	
 
 	// 로그인한 정보에서 예매 내역 뽑아오기 
 	@Override
 	public List<TicketVO> getTicketInfoListString(String userID) {
+		
 		List<TicketVO> list = new ArrayList<>();
 		conn = DBUtil.getConnection();
 		String sql = "SELECT * FROM ticket WHERE userID = ?";
 				
 		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			//pstmt.setString(1, musicalNa);
+			//pstmt.setString(2, date);
+			//pstmt.setString(3, time);
+			rs = pstmt.executeQuery();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userID);
 			
