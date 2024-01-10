@@ -119,14 +119,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 		try {
 			conn = DBUtil.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			//pstmt.setString(1, musicalNa);
-			//pstmt.setString(2, date);
-			//pstmt.setString(3, time);
-			rs = pstmt.executeQuery();
-			
-			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userID);
-			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
