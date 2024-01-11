@@ -94,8 +94,15 @@ public class ReservationDAOImpl implements ReservationDAO {
 			pstmt = conn.prepareStatement(sql);
 			
 			int result = pstmt.executeUpdate();
+			ResultSet rs = pstmt.executeQuery();
 			if(result == 1) {
 				isReservationCheck = true;
+				String userID = rs.getString("userID");
+				String musical = rs.getString("musical");
+				String seatNum = rs.getString("seatNum");
+				String date = rs.getString("Date");
+				String time = rs.getString("time");
+				System.out.println(userID+":"+seatNum+":"+musical+":"+date+":"+time+"입니다123123");
 			}
 		} catch (SQLException e) {
 			isReservationCheck = false;
