@@ -117,7 +117,12 @@ public class ReservationDAOImpl implements ReservationDAO {
 		
 		boolean isReservationDelete = false;
 		
-		String sql = "DELETE FROM ticket WHERE userID='"+vo.getUserID()+"' AND musical='"+vo.getMusical()+"' AND seatNum='"+vo.getSeatNum()+"' AND Date='"+vo.getDate()+"' AND Time='" +vo.getTime()+"';" ;
+		String sql = "DELETE FROM ticket WHERE userID='"+vo.getUserID()
+														+"' AND musical='"+vo.getMusical()
+														+"' AND seatNum='"+vo.getSeatNum()
+														+"' AND Date='"+vo.getDate()
+														+"' AND Time='" +vo.getTime()
+														+"';" ;
 		System.out.println(sql);
 		
 		conn = DBUtil.getConnection();
